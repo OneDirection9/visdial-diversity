@@ -11,7 +11,7 @@ import h5py
 def parse_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--image-dir', dest='image_dir', type=str, required=True)
+    parser.add_argument('--image-dir', dest='img_dir', type=str, default=None)
     parser.add_argument('--visdial-dir', dest='visdial_dir', type=str, default=None)
     parser.add_argument('--index', dest='index', type=int, default=0,
                         help='Which file used to generate dialog')
@@ -28,7 +28,7 @@ def parse_args():
     return args
 
 
-def process_downloaded_json(json_file='./data/visdial/chat_processed_params.json', split='train'):
+def load_downloaded_json(json_file='./data/visdial/chat_processed_params.json', split='train'):
     json_file = osp.expanduser(json_file)
 
     with open(json_file, 'r') as f:
@@ -111,19 +111,41 @@ def main():
     print(args)
 
     split = args.split
-    img_names, word2ind, ind2word = process_downloaded_json(split=split)
+    img_names, word2ind, ind2word = load_downloaded_json(split=split)
     img_feats = load_download_img_feats(split=split)
 
     vocab = Vocabulary(word2ind, ind2word)
+
+    index = args.index
+    if args.img_dir is not None:
+        img_name = img_names[index]
+        img_file = osp.join(args.img_dir, img_name)
+        print('image path: {}'.format(osp.expand(img_file)))
+
     print(tokenize('this is an example'))
+    # N is batch size
+    # round is integer,
+    # caption: N x 31, <start> <caption> <end>
+    # captionLens: N, len(<caption>) + 1
+    # aBot.eval(), aBot.reset()
+    # aBot.observe(-1, image=image, caption=caption, captionLens=captionLens)
+
+    # questions: Nxroundxlen, questions length: Nxround
+    # questions: Nxque_len, <start> <question> <end>
+    # quesLens: N, len(<question>) + 1
+    # answers: Nxlen
+    # ansLens: N,
+    # aBot.observe(round, ques=questions, quesLens=quesLens)
+    # answers, ansLens = aBot.forwardDecode(beamSize=beamSize, inference='greedy')
+    # aBot.observe(round, ans=answers, ansLens=ansLens)
 
     num_round = args.num_round
-    in_seq = "This is an example"
+    que = "This is an example"
     for i in range(num_round):
         print('Round {}'.format(i + 1))
 
-        in_words = tokenize(in_seq)
-        in_inds = [vocab.encode(w) for w in in_words]
+        que_words = tokenize(que)
+        que_inds = [vocab.encode(w) for w in que_words]
 
 
 if __name__ == '__main__':
