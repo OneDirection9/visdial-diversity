@@ -97,7 +97,7 @@ def loadModel(params, agent='abot', overwrite=False, multiGPU=False):
                 # necessary for continuing training, but are
                 # not present in original parameter list.
                 if continueFlag:
-                    print("Loaded option '%s' from checkpoint" % opt)
+                    # print("Loaded option '%s' from checkpoint" % opt)
                     params[opt] = mdict['params'][opt]
                     loadedParams[opt] = mdict['params'][opt]
 
@@ -105,7 +105,7 @@ def loadModel(params, agent='abot', overwrite=False, multiGPU=False):
                 # When continuing training from a checkpoint, overwriting
                 # parameters loaded from checkpoint is okay.
                 if continueFlag:
-                    print("Overwriting param '%s'" % str(opt))
+                    # print("Overwriting param '%s'" % str(opt))
                     params[opt] = mdict['params'][opt]
 
         params['continue'] = continueFlag

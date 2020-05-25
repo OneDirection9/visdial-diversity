@@ -31,7 +31,7 @@ def readCommandLine(argv=None):
                             help='Path to save checkpoints')
     parser.add_argument('-saveName', default='',
                             help='Name of save directory within savePath')
-    parser.add_argument('-startFrom', type=str, default='',
+    parser.add_argument('-startFrom', type=str, default='checkpoints-release/RL_DIV_ABOT.vd',
                             help='Copy weights from model at this path')
     parser.add_argument('-qstartFrom', type=str, default='',
                             help='Copy weights from qbot model at this path')
@@ -147,6 +147,8 @@ def readCommandLine(argv=None):
     parser.add_argument('-useNDCG', action='store_true',
                             help='Whether to use NDCG in evaluation')
     parser.add_argument('-discountFactor',default=0.5,type=float,help="discount factor for future rewards")
+    parser.add_argument('-index', dest='index', type=int, default=0)
+    parser.add_argument('-gt', dest='gt', action='store_true')
     #-------------------------------------------------------------------------
 
     try:

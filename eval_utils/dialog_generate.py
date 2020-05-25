@@ -187,7 +187,8 @@ def run_dialog(params,
     assert aBot is not None or (qBot is not None and aBot is not None),\
                             "Must provide either an A-Bot alone or both \
                             Q-Bot and A-Bot when generating dialog"
-    rankMetrics, _ = rankQBot(qBot, dataset, 'val')
+    # rankMetrics, _ = rankQBot(qBot, dataset, 'val')
+    rankMetrics = None
 
     old_split = dataset.split
     batchSize = dataset.batchSize
