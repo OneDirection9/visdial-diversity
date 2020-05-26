@@ -92,6 +92,8 @@ def load_processed_data(processed_file, vocab, split='train', index=0, gt=False)
     cap = np.array(data['cap_{}'.format(split)][index])
     cap_len = np.array(data['cap_length_{}'.format(split)][index]).item()
 
+    print('caption: {}'.format(decode_sent(cap, cap_len, vocab)))
+
     if gt:
         ques = np.array(data['ques_{}'.format(split)][index])
         ques_len = np.array(data['ques_length_{}'.format(split)][index])
@@ -100,8 +102,7 @@ def load_processed_data(processed_file, vocab, split='train', index=0, gt=False)
         ans_len = np.array(data['ans_length_{}'.format(split)][index])
         assert ques.shape[0] == ans.shape[0]
 
-        print('ground truth: ========================')
-        print('caption: {}'.format(decode_sent(cap, cap_len, vocab)))
+        print('ground truth Q&A: ========================')
 
         num_round = ques.shape[0]
         for r in range(num_round):

@@ -31,7 +31,7 @@ def readCommandLine(argv=None):
                             help='Path to save checkpoints')
     parser.add_argument('-saveName', default='',
                             help='Name of save directory within savePath')
-    parser.add_argument('-startFrom', type=str, default='data/checkpoints/RL_DIV_ABOT.vd',
+    parser.add_argument('-startFrom', type=str, default='data/visdial/checkpoints/RL_DIV_ABOT.vd',
                             help='Copy weights from model at this path')
     parser.add_argument('-qstartFrom', type=str, default='',
                             help='Copy weights from qbot model at this path')
