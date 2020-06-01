@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+mkdir -p ./data/visdial
 
 # Processed image features for VisDial v1.0, using VGG-19
 wget https://s3.amazonaws.com/visual-dialog/data/v1.0/data_img_vgg16_relu7_train.h5 -O data/visdial/data_img.h5
